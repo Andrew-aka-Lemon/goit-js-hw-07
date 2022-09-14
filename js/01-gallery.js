@@ -5,7 +5,6 @@ const galleryMainBlockRef = document.querySelector('.gallery');
 // console.log(galleryMainBlockRef);
 
 galleryMainBlockRef.addEventListener('click', onItemClick);
-document.addEventListener('keydown', closeOnEscape);
 
 function doItemsGalleryMarkup(objectImages) {
   const galleryItems = objectImages
@@ -34,19 +33,19 @@ let instance = null;
 function onItemClick(event) {
   event.preventDefault();
   const elem = event.target;
+  document.addEventListener('keydown', closeOnEscape);
 
   if (elem.nodeName !== 'IMG') {
     return;
   }
 
-  //   console.dir(elem);
+  instance = basicLightbox.create(`<img src="${elem.dataset.source}">`, {
+    onClose: instance => {
+      document.removeEventListener('keydown', closeOnEscape);
+    },
+  });
 
-  instance = basicLightbox.create(`<img src="${elem.dataset.source}">`);
-  //   const instance = basicLightbox.create(`${elem}`);
   instance.show();
-
-  //   const openedImage = document.querySelector('.basicLightbox');
-  //   console.log(openedImage);
 }
 
 function closeOnEscape(event) {
