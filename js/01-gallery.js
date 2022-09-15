@@ -40,7 +40,7 @@ function onItemClick(event) {
   }
 
   instance = basicLightbox.create(`<img src="${elem.dataset.source}">`, {
-    onClose: instance => {
+    onClose: () => {
       document.removeEventListener('keydown', closeOnEscape);
     },
   });
@@ -49,7 +49,7 @@ function onItemClick(event) {
 }
 
 function closeOnEscape(event) {
-  console.log(event.code);
+  // console.log(event.code);
   if (event.code === 'Escape') {
     instance.close();
   }
